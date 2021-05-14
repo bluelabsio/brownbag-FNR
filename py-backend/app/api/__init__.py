@@ -1,0 +1,1 @@
+from app.api.endpoints.info import InfoApi as Info
