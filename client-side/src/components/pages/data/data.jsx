@@ -10,22 +10,29 @@ const mapStateToProps = (state) => ({
   
 const Data = ({name}) => {
 
-  const [allRoutes, setAllRoutes] = useState([]);
+  const [allRoutes, setAllRoutes] = useState({});
 
   const getRoutes = () => {
     axios.get('/api')
       .then(result => {
         console.log(result.data);
-        setAllRoutes(result.data);
+        const endpoints = Object.entries(result.data.data.endpoints);
+        const mapped = endpoints.map((items) => items[1].join(" | "));
+        setAllRoutes(mapped);
       })
       .catch(err => {
         console.log("Unable to show routes");
       });
   };
 
+  const listRoutes = (routesObj) => {
+    return Object.entries(routesObj).map(items => items.join("| ")).join("\n");
+  };
+
   useEffect(() => {
     getRoutes();
   }, []);
+
 
   return(
     <>
@@ -34,7 +41,7 @@ const Data = ({name}) => {
       <div id="title">Available Routes</div>
       <div id="routes-container">
         <div id="routes-wrapper">
-          {allRoutes}
+          {allRoutes ? allRoutes : "No routes"}
         </div>
       </div>
     </section>

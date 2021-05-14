@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Basic data service middle layer",
   "main": "index.js",
+  "module": "./server.js",
   "author": "Rick Nunes",
   "license": "MIT",
   "scripts": {
